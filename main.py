@@ -29,3 +29,85 @@
 # Vārdnīcas - https://www.w3schools.com/python/python_dictionaries.asp
 # Klonēt repozitoriju - hhttps://code.visualstudio.com/docs/sourcecontrol/intro-to-git
 #
+
+###
+produkti = []
+
+produkts = {
+    "name": "Piens",
+    "cena": 2.20
+}
+
+produkti.append(produkts)
+###
+
+
+import json #json fails
+with open('list.json', 'r') as openfile:
+    list=json.load(openfile)
+
+    print("sveiki, jūs atrodaties cash registration/kases aparāta programā.") #ievada teksts kas pasaka ko lietotajam vajag darīt
+    print("Jūsu uzdevums ir pārdot preces klientiem.")
+
+    food = [["H","Hamburgers", 1,50],["F","Frī kartupeļi", 0,50],["L","Limonāde", 0,79],["O","Onion rings", 1,70],["M","mozzarella sticks", 2,10],["K","Kids happy meal", 2,20],["T","Todays special", 4,39]["S","Months special", 8,99],] #
+
+    def menu(): #the menu
+        print("""
+            food menu:
+            H-Hamburgers, 1,50€
+            F-frī kartupeļi, 0,50€
+            L-Limonāde, 0,79€
+            O-Onion rings, 1,70€
+            M-mozzarella sticks, 2.10€
+            K-Kids happy meal, 2,20€
+            T-Todays special, 4,39€
+            S-Months special, 8,99€
+            """)
+        
+        more = "Yes"
+        total_cost = list ["Total cost"]
+        menu()
+        prices = []
+        index = 0
+        quantity = list[quantity]
+        quantity = list["discount"]
+
+
+        choice = input ("Izvēlieties burtu kas atbilst precei:").upper()
+        while choice = "E"
+        match = 0
+        or i in food:
+if choice ==i[0]:
+try:
+    num = int(input("cik daudz" + str(i[1]) + "s vai klients izvelejas:"))
+    exept ValueError:
+    Print("Kļūda, lūdzu ievadiet numuru ar cik daudz" + i[1] + "s bija izvēlēti")
+    num = int(input("Cik daudz" + str(i[1]) + "s klients izvelejas:"))
+    food_price = round(i[2]*num,2)
+    total_cost += food_price
+    print(i[1],"\t €", food_price)
+    entry = [i[1],num,food_price]
+    quantity.append(entry)
+new_cost = total_cost 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+        
+
