@@ -1,16 +1,16 @@
 #
 # Kases aparāts
 #
-# 0.5pt pievienot jaunu preci - nosaukumu un cenu
-#     0.5pt preces nosaukumam jābūt no 2 līdz 120 simboliem (jābūt validācijai, rādīt paziņojumu ja neder)
-#     0.5pt preces cenai jābūt veselam skaitlim vai daļskaitlim ar vērtību no 0 līdz 9999 (jābūt validācijai, rādīt paziņojumu ja neder)
-# 0.5pt dzēst preci pēc kārtas numura
-# 0.5pt atcelt ievadu / iztukšot preču sarakstu
-# 0.5pt piemērot atlaidi, ievadīt summu procentos
-# 0.5pt samaksāt, ja iedota lielāka summa - izdrukāt atlikumu
-# 0.5pt izdrukāt čeku uz ekrāna - preces nosaukumus un summas
-#     0.5pt izdrukāt piemēroto atlaidi (ja ir)
-#     0.5pt izdrukāt kopējo summu
+# 0.5pt pievienot jaunu preci - nosaukumu un cenu-------------------
+#     0.5pt preces nosaukumam jābūt no 2 līdz 120 simboliem (jābūt validācijai, rādīt paziņojumu ja neder)--------------------
+#     0.5pt preces cenai jābūt veselam skaitlim vai daļskaitlim ar vērtību no 0 līdz 9999 (jābūt validācijai, rādīt paziņojumu ja neder)------------
+# 0.5pt dzēst preci pēc kārtas numura---------------
+# 0.5pt atcelt ievadu / iztukšot preču sarakstu----------------
+# 0.5pt piemērot atlaidi, ievadīt summu procentos------------
+# 0.5pt samaksāt, ja iedota lielāka summa - izdrukāt atlikumu-----------
+# 0.5pt izdrukāt čeku uz ekrāna - preces nosaukumus un summas-----------
+#     0.5pt izdrukāt piemēroto atlaidi (ja ir)--------------
+#     0.5pt izdrukāt kopējo summu---------------------
 
 # 1pt programmas stāvoklis tiek glabāts JSON faila un programmas sākumā tiek ielasīts un beigās saglabāts
 # 1pt kodam ir jēdzīgi komentāri, pirms "if, for, while" koda konstrukcijam
@@ -29,66 +29,76 @@
 # Vārdnīcas - https://www.w3schools.com/python/python_dictionaries.asp
 # Klonēt repozitoriju - hhttps://code.visualstudio.com/docs/sourcecontrol/intro-to-git
 #
+import json
 
-###
-produkti = []
-
-produkts = {
-    "name": "Piens",
-    "cena": 2.20
-}
-
-produkti.append(produkts)
+produkti_file = open ('produkti.json')
+produkti = json.load(produkti_file) 
+produkti_file.close()
 ###
 
+produkts = {}
+discount=0
+#produkti.append(produkts)
 
-import json #json fails
-with open('list.json', 'r') as openfile:
-    list=json.load(openfile)
-
-    print("sveiki, jūs atrodaties cash registration/kases aparāta programā.") #ievada teksts kas pasaka ko lietotajam vajag darīt
-    print("Jūsu uzdevums ir pārdot preces klientiem.")
-
-    food = [["H","Hamburgers", 1,50],["F","Frī kartupeļi", 0,50],["L","Limonāde", 0,79],["O","Onion rings", 1,70],["M","mozzarella sticks", 2,10],["K","Kids happy meal", 2,20],["T","Todays special", 4,39]["S","Months special", 8,99],] #
-
-    def menu(): #the menu
-        print("""
-            food menu:
-            H-Hamburgers, 1,50€
-            F-frī kartupeļi, 0,50€
-            L-Limonāde, 0,79€
-            O-Onion rings, 1,70€
-            M-mozzarella sticks, 2.10€
-            K-Kids happy meal, 2,20€
-            T-Todays special, 4,39€
-            S-Months special, 8,99€
-            """)
+print("Guten morgen! Please tell me, what would you like and remember we only take credit cash, no credit cards ")
+while True: # katru reizi parada to garo print un visa programma darbojas
+    
+    print("""press one of the following buttons for further action:
+nr.1 to add item
+nr.2 show list
+nr.3 to remove an item
+nr.4 leave my store and delete all of the list
+nr.5 add a discount
+nr.6 pay for everything
+nr.7 get out""")
+    command = input("\nChoose command:")
+    if command == "1": #pievieno produktu
+        produkts={}
+        produkts['name']=input("Enter name of product")
+        if len(produkts['name']) > 120 or len(produkts['name']) < 2: #nosaukumu validācija
+            print("ERROR")
+        else:
+            produkts['cena']=float(input("Enter price of product"))
+            if produkts['cena'] > 9999 or produkts['cena'] < 0: #cenas validācija
+                print("ERROR")
+            else:
+                produkti.append(produkts)
+            print(produkti)
+    if command == "2": #parada listu
+        print(produkti)
         
-        more = "Yes"
-        total_cost = list ["Total cost"]
-        menu()
-        prices = []
-        index = 0
-        quantity = list[quantity]
-        quantity = list["discount"]
+    if command == "3": # noņem produktu
+        trashcan=int(input("what product would you like to remove from your list?(write the number of the product)"))
+        produkti.pop(trashcan-1)
+        print()
+    if command == "4": # noņem visus produktus no lista
+       print("you wished to delete all of your list, remeber refund is not given if you did not buy anything")
+       produkti=[]
+    if command == "5": # iedod/pievieno akciju vai atlaidi
+       discount=int(input("Enter discount(%): "))
+    if command == "6": #samaksa
+        total=0
+        for product in produkti: #saskaita kopeja produktu summu
+            total= total + product['cena']
+        print("Sales: ", total)
+        print("Discount: ",discount,"%")
+        print("Total Sales: ", total-total*(discount/100))
+        payment=float(input("please pay, remember we only take cash"))
+        if payment<total-total*(discount/100):# parbauda vai pietiek naudas
+            print("you dont have enough money please remove some of the products")
+        else:
+            exchange=payment-(total-total*(discount/100))
+            print("here's your exchange", exchange)
+    if command == "7": # iziet ara
+        with open ("produkti.json", "w") as outfiles:
+            json.dump(produkti, outfiles)
+        print("Exiting...")
+        break
+###
 
 
-        choice = input ("Izvēlieties burtu kas atbilst precei:").upper()
-        while choice = "E"
-        match = 0
-        or i in food:
-if choice ==i[0]:
-try:
-    num = int(input("cik daudz" + str(i[1]) + "s vai klients izvelejas:"))
-    exept ValueError:
-    Print("Kļūda, lūdzu ievadiet numuru ar cik daudz" + i[1] + "s bija izvēlēti")
-    num = int(input("Cik daudz" + str(i[1]) + "s klients izvelejas:"))
-    food_price = round(i[2]*num,2)
-    total_cost += food_price
-    print(i[1],"\t €", food_price)
-    entry = [i[1],num,food_price]
-    quantity.append(entry)
-new_cost = total_cost 
+
+
 
 
 
